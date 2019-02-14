@@ -1,0 +1,53 @@
+<div class="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{studioSchedules.studioScheduleId?"Update schedule":"Add schedule  "}}</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="onCancel()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addEditForm" novalidate (ngSubmit)="onSave()">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Studio Name" formControlName="studioName">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Date(YYYY-MM-DD)" formControlName="date">
+          </div>
+          <div formArrayName="studioScheduleSlotList">
+            <div *ngFor="let slot of addEditForm.controls.studioScheduleSlotList.controls; let i=index">
+              <div>
+                <span>Slot {{i + 1}}</span>
+                <span *ngIf="addEditForm.controls.studioScheduleSlotList.controls.length > 1"
+                  (click)="removeSlot(i)"><button type="button" class="btn btn-link">Remove</button>
+                </span>
+              </div>
+              <div [formGroupName]="i">
+                <div>
+                  <input type="text" class="form-control" placeholder="Start Time(HH:MM:SS)"
+                    formControlName="startTime">
+                </div>
+                <div>
+                  <input type="text" class="form-control" placeholder="End Time (HH:MM:SS)" formControlName="endTime">
+                </div>
+                <div>
+                  <input type="text" class="form-control" placeholder="Faculty" formControlName="faculty">
+                </div>
+                <div>
+                  <input type="text" class="form-control" placeholder="Assigner name" formControlName="assignerName">
+                </div>
+              </div>
+              <button type="button" class="btn btn-link" (click)="addSlot()">Add slot</button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="!addEditForm.valid">Save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <p>{{status}}</p>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onCancel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

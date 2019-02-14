@@ -1,0 +1,11 @@
+.alert-success {
+    background-color: #b5da8c;
+}
+.dflex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.pull-right {
+    float: right;
+}

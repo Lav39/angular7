@@ -1,0 +1,11 @@
+<div *ngIf="studioSchedules.studioScheduleId" class="alert alert-dismissible alert-success dflex">
+  <div><strong>Studio Name</strong> {{studioSchedules.studioName}}</div>
+  <div><strong>Date</strong> {{studioSchedules.date}}</div>
+  <button type="button" class="btn btn-warning pull-right" (click)="onUpdateSchedule(studioSchedules)">Update</button>
+  <button type="button" class="btn btn-primary  pull-right"
+    (click)="toggleSlots()">{{showSlots ? "Hide Slots" : "Show slots"}}</button>
+</div>
+<ng-container *ngIf="studioSchedules.studioScheduleSlotList.length && showSlots">
+  <app-schedule *ngFor="let schedule of studioSchedules.studioScheduleSlotList;let i=index" [schedule]="schedule">
+  </app-schedule>
+</ng-container>

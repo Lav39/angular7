@@ -1,0 +1,21 @@
+<div class="jumbotron">
+  <h1 class="display-3">Scheduling App</h1>
+  <button type="button" class="btn btn-primary pull-right" (click)="OnExplicitCreate()">Create New Schedule</button>
+  <p class="lead">This is a simple schedule search app</p>
+  <hr class="my-4">
+  <p>Please type studio name and date to check availabilty</p>
+  <form class="form-group" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <input type="text" class="form-control" placeholder="Studio Name" formControlName="studioName">
+    <input type="text" class="form-control" placeholder="Date(YYYY-MM-DD)" formControlName="localDate">
+    <button type="submit" [disabled]="!searchForm.valid" class="btn btn-success">Search</button>
+  </form>
+  <ng-container *ngIf="studioSchedules">
+    <app-studio [studioSchedules]="studioSchedules" (onScheduleSave)="updateForm($event)"></app-studio>
+  </ng-container>
+  <ng-container *ngIf="studioSchedules && studioSchedules.studioScheduleId.length===0">
+    <p>No schedule found. Create one?</p>
+    <button type="button" class="btn btn-primary" (click)="onAttemptCreate()">Create</button>
+  </ng-container>
+  <app-add-edit-schedule *ngIf="showAddEditModal" [status]="status" [studioSchedules]="studioSchedules"
+    (onCancelCreate)="onCancelCreate()" (onScheduleSave)="OnCreateConfirm($event)"></app-add-edit-schedule>
+</div>
